@@ -1,13 +1,8 @@
-package com.github.nizacegodk.cakeconfigplugin;
+package com.github.nizacegodk.cakeconfigplugin.util;
 
-import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,12 +23,4 @@ public class ConfigUtil {
         return StringUtil.trimStart(virtualFile.getPath(), projectPath);
     }
 
-    public static int getLineNumber(PsiElement element) {
-        PsiFile containingFile = element.getContainingFile();
-        FileViewProvider fileViewProvider = containingFile.getViewProvider();
-        Document document = fileViewProvider.getDocument();
-
-        int textOffset = element.getTextOffset();
-        return document.getLineNumber(textOffset) + 1;
-    }
 }

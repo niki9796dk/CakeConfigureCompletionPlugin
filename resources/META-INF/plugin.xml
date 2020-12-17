@@ -24,7 +24,7 @@
   <extensions defaultExtensionNs="com.intellij">
     <!-- Auto completion -->
     <completion.contributor
-            implementationClass="com.github.nizacegodk.cakeconfigplugin.ConfigurationCompletionContributor"
+            implementationClass="com.github.nizacegodk.cakeconfigplugin.autoCompletion.ConfigurationCompletion.ConfigurationCompletionContributor"
             language="any"
     />
 
@@ -32,7 +32,7 @@
     <fileBasedIndex implementation="com.github.nizacegodk.cakeconfigplugin.indicies.ConfigKeyStubIndex"/>
 
     <!-- Goto / Jump to definition / jump to usages -->
-    <gotoDeclarationHandler implementation="com.github.nizacegodk.cakeconfigplugin.gotos.ConfigGotoDeclarationTarget"/>
+    <gotoDeclarationHandler implementation="com.github.nizacegodk.cakeconfigplugin.gotos.ConfigGotoDeclarationHandler"/>
   </extensions>
 
 </idea-plugin>

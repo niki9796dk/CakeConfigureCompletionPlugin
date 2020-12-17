@@ -1,21 +1,13 @@
 package com.github.nizacegodk.cakeconfigplugin.indicies;
 
-import com.github.nizacegodk.cakeconfigplugin.ConfigUtil;
+import com.github.nizacegodk.cakeconfigplugin.util.ConfigUtil;
 import com.github.nizacegodk.cakeconfigplugin.indicies.visitors.ArrayReturnPsiRecursiveVisitor;
-import com.intellij.lang.LanguagePsiElementExternalizer;
-import com.intellij.lang.PsiElementExternalizer;
-import com.intellij.openapi.editor.Document;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.indexing.*;
 import com.intellij.util.io.DataExternalizer;
 import com.intellij.util.io.EnumeratorStringDescriptor;
 import com.intellij.util.io.KeyDescriptor;
-import com.intellij.util.io.VoidDataExternalizer;
 import com.intellij.util.io.externalizer.StringCollectionExternalizer;
-import com.jetbrains.php.lang.psi.PhpFile;
-import com.jetbrains.php.lang.psi.stubs.indexes.StringSetDataExternalizer;
 import gnu.trove.THashMap;
 import org.jetbrains.annotations.NotNull;
 

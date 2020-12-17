@@ -1,4 +1,4 @@
-package com.github.nizacegodk.cakeconfigplugin;
+package com.github.nizacegodk.cakeconfigplugin.psiElements;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.Language;
@@ -20,14 +20,12 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class ConfigFakePsiElement extends FakePsiElement {
+public class DelegatedFakePsiElement extends FakePsiElement {
 
-    private final PsiElement real;
-    private String filePath;
+    protected final PsiElement real;
 
-    public ConfigFakePsiElement(PsiElement real, String filePath) {
+    public DelegatedFakePsiElement(PsiElement real) {
         this.real = real;
-        this.filePath = filePath;
     }
 
     @Override
@@ -48,7 +46,7 @@ public class ConfigFakePsiElement extends FakePsiElement {
     @Override
     public @Nullable
     @NonNls String getText() {
-        return this.filePath;
+        return this.real.getText();
     }
 
     @Override
