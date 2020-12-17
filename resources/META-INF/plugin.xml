@@ -16,7 +16,7 @@
     ]]>
   </description>
 
-  <idea-version since-build="201.0"/>
+  <idea-version since-build="202.0"/>
 
   <depends>com.intellij.modules.platform</depends>
   <depends>com.jetbrains.php</depends>
