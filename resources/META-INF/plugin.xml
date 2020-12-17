@@ -1,0 +1,38 @@
+<idea-plugin>
+  <id>CakeConfigureCompletion</id>
+  <name>Cake Configure Completion</name>
+  <version>0.1</version>
+  <vendor email="nikiewald@hotmail.dk">Niki Ewald Zakariassen</vendor>
+
+  <description><![CDATA[
+    <p>Let's your IDE help you better.</p>
+    <br/>
+
+    Plugin provides the following features:
+    <ul>
+      <li>Auto completion for Configure::read and Configure::write</li>
+      <li>Jump to definition for configuration strings</li>
+    </ul>
+    ]]>
+  </description>
+
+  <idea-version since-build="201.0"/>
+
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.jetbrains.php</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Auto completion -->
+    <completion.contributor
+            implementationClass="com.github.nizacegodk.cakeconfigplugin.ConfigurationCompletionContributor"
+            language="any"
+    />
+
+    <!-- Indices -->
+    <fileBasedIndex implementation="com.github.nizacegodk.cakeconfigplugin.indicies.ConfigKeyStubIndex"/>
+
+    <!-- Goto / Jump to definition / jump to usages -->
+    <gotoDeclarationHandler implementation="com.github.nizacegodk.cakeconfigplugin.gotos.ConfigGotoDeclarationTarget"/>
+  </extensions>
+
+</idea-plugin>
