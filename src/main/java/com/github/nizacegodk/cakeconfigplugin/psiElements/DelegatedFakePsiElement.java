@@ -39,11 +39,6 @@ public class DelegatedFakePsiElement extends FakePsiElement {
     }
 
     @Override
-    public @NotNull Iterable<? extends PsiSymbolReference> getOwnReferences() {
-        return real.getOwnReferences();
-    }
-
-    @Override
     public @Nullable
     @NonNls String getText() {
         return this.real.getText();
@@ -213,12 +208,6 @@ public class DelegatedFakePsiElement extends FakePsiElement {
     }
 
     @Override
-    @Deprecated
-    public void checkAdd(@NotNull PsiElement psiElement) throws IncorrectOperationException {
-        real.checkAdd(psiElement);
-    }
-
-    @Override
     public PsiElement addRange(PsiElement psiElement, PsiElement psiElement1) throws IncorrectOperationException {
         return real.addRange(psiElement, psiElement1);
     }
@@ -236,12 +225,6 @@ public class DelegatedFakePsiElement extends FakePsiElement {
     @Override
     public void delete() throws IncorrectOperationException {
         real.delete();
-    }
-
-    @Override
-    @Deprecated
-    public void checkDelete() throws IncorrectOperationException {
-        real.checkDelete();
     }
 
     @Override
