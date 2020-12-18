@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>CakeConfigureCompletion</id>
   <name>Cake Configure Completion</name>
-  <version>0.1</version>
+  <version>0.2</version>
   <vendor email="nikiewald@hotmail.dk">Niki Ewald Zakariassen</vendor>
 
   <description><![CDATA[
