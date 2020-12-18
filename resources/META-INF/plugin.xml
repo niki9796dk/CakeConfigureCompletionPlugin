@@ -2,7 +2,7 @@
   <id>CakeConfigureCompletion</id>
   <name>Cake Configure Completion</name>
   <version>0.2</version>
-  <vendor email="nikiewald@hotmail.dk">Niki Ewald Zakariassen</vendor>
+  <vendor email="nikiewald@hotmail.dk" url="https://github.com/niki9796dk/CakeConfigureCompletionPlugin">Niki Ewald Zakariassen</vendor>
 
   <description><![CDATA[
     <p>Let's your IDE help you better.</p>
