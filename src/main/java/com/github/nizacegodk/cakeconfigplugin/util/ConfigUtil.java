@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ConfigUtil {
-    private static final Pattern configFilePathPattern = Pattern.compile("/configs/(.+/)*config.php$");
+    private static final Pattern configFilePathPattern = Pattern.compile("/configs/([\\w-/]+).php$");
 
     public static boolean isConfigFile(Project project, VirtualFile virtualFile) {
         String path = ConfigUtil.getFilePath(project, virtualFile);

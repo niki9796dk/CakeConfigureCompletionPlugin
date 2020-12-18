@@ -65,7 +65,7 @@ public class ConfigKeyStubIndex extends FileBasedIndexExtension<String, List<Str
     @NotNull
     @Override
     public FileBasedIndex.InputFilter getInputFilter() {
-        return file -> "PHP".equals(file.getFileType().getName()) && file.getName().endsWith("config.php");
+        return file -> "PHP".equals(file.getFileType().getName());
     }
 
     @Override
