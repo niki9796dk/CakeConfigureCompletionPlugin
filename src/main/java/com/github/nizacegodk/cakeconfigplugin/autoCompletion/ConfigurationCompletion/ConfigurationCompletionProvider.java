@@ -1,6 +1,5 @@
 package com.github.nizacegodk.cakeconfigplugin.autoCompletion.ConfigurationCompletion;
 
-import com.github.nizacegodk.cakeconfigplugin.indicies.ConfigKeyStubIndex;
 import com.github.nizacegodk.cakeconfigplugin.util.IndicesUtil;
 import com.github.nizacegodk.cakeconfigplugin.util.PsiElementUtil;
 import com.intellij.codeInsight.completion.CompletionParameters;

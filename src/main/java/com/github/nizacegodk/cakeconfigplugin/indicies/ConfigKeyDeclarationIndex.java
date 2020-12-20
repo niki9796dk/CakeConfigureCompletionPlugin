@@ -14,7 +14,7 @@ import gnu.trove.THashMap;
 import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
-public class ConfigKeyStubIndex extends FileBasedIndexExtension<String, Void> {
+public class ConfigKeyDeclarationIndex extends FileBasedIndexExtension<String, Void> {
 
     public static final ID<String, Void> KEY = ID.create("com.github.nizacegodk.cakeconfigplugin.config_keys");
 

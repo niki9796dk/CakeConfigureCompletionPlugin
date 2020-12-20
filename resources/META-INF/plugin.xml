@@ -29,7 +29,8 @@
     />
 
     <!-- Indices -->
-    <fileBasedIndex implementation="com.github.nizacegodk.cakeconfigplugin.indicies.ConfigKeyStubIndex"/>
+    <fileBasedIndex implementation="com.github.nizacegodk.cakeconfigplugin.indicies.ConfigKeyDeclarationIndex"/>
+    <fileBasedIndex implementation="com.github.nizacegodk.cakeconfigplugin.indicies.ConfigKeyUsageIndex"/>
 
     <!-- Goto / Jump to definition / jump to usages -->
     <gotoDeclarationHandler implementation="com.github.nizacegodk.cakeconfigplugin.gotos.ConfigGotoDeclarationHandler"/>

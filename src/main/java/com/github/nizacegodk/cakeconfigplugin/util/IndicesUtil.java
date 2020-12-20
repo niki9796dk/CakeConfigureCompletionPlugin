@@ -1,6 +1,6 @@
 package com.github.nizacegodk.cakeconfigplugin.util;
 
-import com.github.nizacegodk.cakeconfigplugin.indicies.ConfigKeyStubIndex;
+import com.github.nizacegodk.cakeconfigplugin.indicies.ConfigKeyDeclarationIndex;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
@@ -21,7 +21,7 @@ public class IndicesUtil {
     }
 
     public static Collection<String> getAllKeysForConfigKeyIndex(@NotNull Project project) {
-        return IndicesUtil.getAllKeys(ConfigKeyStubIndex.KEY, project);
+        return IndicesUtil.getAllKeys(ConfigKeyDeclarationIndex.KEY, project);
     }
 
     protected static <K> Collection<K> getAllKeys(@NotNull ID<K, ?> indexKey, @NotNull Project project) {
@@ -32,7 +32,7 @@ public class IndicesUtil {
         List<PsiFile> psiFiles = new ArrayList<>();
 
         FileBasedIndex.getInstance().getFilesWithKey(
-                ConfigKeyStubIndex.KEY,
+                ConfigKeyDeclarationIndex.KEY,
                 Collections.singleton(configKey),
                 virtualFile -> {
                     PsiFile psiFile = PsiManager.getInstance(project).findFile(virtualFile);
