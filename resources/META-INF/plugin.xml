@@ -11,10 +11,26 @@
     Plugin provides the following features:
     <ul>
       <li>Auto completion for Configure::read and Configure::write</li>
-      <li>Jump to definition for configuration strings</li>
+      <li>Jump to definition for configuration keys</li>
+      <li>Jump to usages for configuration keys</li>
     </ul>
     ]]>
   </description>
+
+  <change-notes><![CDATA[
+    0.2:
+    <ul>
+      <li>Added quality of life visual improvements for listings of definitions and usages</li>
+      <li>Added jump to usage functionality</li>
+    </ul>
+    0.1:
+    <ul>
+      <li>Initial release</li>
+      <li>Auto completion for configure methods</li>
+      <li>Jump to definition for configure keys</li>
+    </ul>
+    ]]>
+  </change-notes>
 
   <idea-version since-build="202.0"/>
 
