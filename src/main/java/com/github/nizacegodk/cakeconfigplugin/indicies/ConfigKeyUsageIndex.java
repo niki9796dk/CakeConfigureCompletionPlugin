@@ -13,7 +13,10 @@ import com.intellij.util.io.VoidDataExternalizer;
 import com.jetbrains.php.lang.PhpFileType;
 import gnu.trove.THashMap;
 import org.jetbrains.annotations.NotNull;
+import org.jsoup.internal.StringUtil;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class ConfigKeyUsageIndex extends FileBasedIndexExtension<String, Void> {
@@ -39,7 +42,13 @@ public class ConfigKeyUsageIndex extends FileBasedIndexExtension<String, Void> {
             }
 
             // Collect all Configure::read statements
-            psiFile.acceptChildren(new ConfigureReadPsiRecursiveVisitor((key, psiElement) -> map.put(key, null)));
+            psiFile.acceptChildren(new ConfigureReadPsiRecursiveVisitor((key, psiElement) -> {
+                List<String> keyParts = Arrays.asList(key.split("\\."));
+
+                for (int i = 1; i <= keyParts.size(); i++) {
+                    map.put(StringUtil.join(keyParts.subList(0, i), "."), null);
+                }
+            }));
 
             return map;
         };

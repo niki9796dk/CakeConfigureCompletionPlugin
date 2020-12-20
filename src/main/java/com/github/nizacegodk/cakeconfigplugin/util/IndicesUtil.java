@@ -1,6 +1,7 @@
 package com.github.nizacegodk.cakeconfigplugin.util;
 
 import com.github.nizacegodk.cakeconfigplugin.indicies.ConfigKeyDeclarationIndex;
+import com.github.nizacegodk.cakeconfigplugin.indicies.ConfigKeyUsageIndex;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
@@ -28,11 +29,34 @@ public class IndicesUtil {
         return FileBasedIndex.getInstance().getAllKeys(indexKey, project);
     }
 
-    public static List<PsiFile> getAllFilesWithConfigKey(@NotNull String configKey, @NotNull Project project) {
+    public static List<PsiFile> getAllFilesWithConfigKeyDefinition(@NotNull String configKey, @NotNull Project project) {
         List<PsiFile> psiFiles = new ArrayList<>();
 
         FileBasedIndex.getInstance().getFilesWithKey(
                 ConfigKeyDeclarationIndex.KEY,
+                Collections.singleton(configKey),
+                virtualFile -> {
+                    PsiFile psiFile = PsiManager.getInstance(project).findFile(virtualFile);
+
+                    if(psiFile == null) {
+                        return true;
+                    }
+
+                    psiFiles.add(psiFile);
+
+                    return true;
+                },
+                GlobalSearchScope.everythingScope(project)
+        );
+
+        return psiFiles;
+    }
+
+    public static List<PsiFile> getAllFilesWithConfigKeyUsage(@NotNull String configKey, @NotNull Project project) {
+        List<PsiFile> psiFiles = new ArrayList<>();
+
+        FileBasedIndex.getInstance().getFilesWithKey(
+                ConfigKeyUsageIndex.KEY,
                 Collections.singleton(configKey),
                 virtualFile -> {
                     PsiFile psiFile = PsiManager.getInstance(project).findFile(virtualFile);

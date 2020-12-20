@@ -34,6 +34,7 @@
 
     <!-- Goto / Jump to definition / jump to usages -->
     <gotoDeclarationHandler implementation="com.github.nizacegodk.cakeconfigplugin.gotos.ConfigGotoDeclarationHandler"/>
+    <gotoDeclarationHandler implementation="com.github.nizacegodk.cakeconfigplugin.gotos.ConfigGotoUsageHandler"/>
   </extensions>
 
 </idea-plugin>

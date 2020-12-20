@@ -61,7 +61,7 @@ public class ConfigGotoDeclarationHandler implements GotoDeclarationHandler {
     private List<ConfigDeclaration> getAllDeclarationsForConfig(String configKey, Project project) {
 
         // Find all declarations and find all PsiFiles with those declarations
-        List<PsiFile> configurationFiles = IndicesUtil.getAllFilesWithConfigKey(configKey, project);
+        List<PsiFile> configurationFiles = IndicesUtil.getAllFilesWithConfigKeyDefinition(configKey, project);
 
         List<ConfigDeclaration> declarations = new ArrayList<>();
 
