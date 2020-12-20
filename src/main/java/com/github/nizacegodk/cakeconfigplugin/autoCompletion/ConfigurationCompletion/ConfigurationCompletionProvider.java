@@ -10,10 +10,7 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.util.PlatformIcons;
 import com.intellij.util.ProcessingContext;
-import com.intellij.util.indexing.FileBasedIndex;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
 
 public class ConfigurationCompletionProvider extends CompletionProvider<CompletionParameters> {
 

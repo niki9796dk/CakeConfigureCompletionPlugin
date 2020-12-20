@@ -1,49 +1,47 @@
 package com.github.nizacegodk.cakeconfigplugin.indicies;
 
-import com.github.nizacegodk.cakeconfigplugin.util.ConfigUtil;
-import com.github.nizacegodk.cakeconfigplugin.indicies.visitors.ArrayReturnPsiRecursiveVisitor;
+import com.github.nizacegodk.cakeconfigplugin.indicies.visitors.ConfigureWritePsiRecursiveVisitor;
+import com.github.nizacegodk.cakeconfigplugin.indicies.visitors.ArrayCreationVisitor.ArrayReturnPsiRecursiveVisitor;
+import com.github.nizacegodk.cakeconfigplugin.util.PsiFileUtil;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.indexing.*;
 import com.intellij.util.io.DataExternalizer;
 import com.intellij.util.io.EnumeratorStringDescriptor;
 import com.intellij.util.io.KeyDescriptor;
-import com.intellij.util.io.externalizer.StringCollectionExternalizer;
+import com.intellij.util.io.VoidDataExternalizer;
+import com.jetbrains.php.lang.PhpFileType;
 import gnu.trove.THashMap;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.*;
 
+public class ConfigKeyStubIndex extends FileBasedIndexExtension<String, Void> {
 
-public class ConfigKeyStubIndex extends FileBasedIndexExtension<String, List<String>> {
-
-    public static final ID<String, List<String>> KEY = ID.create("com.github.nizacegodk.cakeconfigplugin.config_keys");
+    public static final ID<String, Void> KEY = ID.create("com.github.nizacegodk.cakeconfigplugin.config_keys");
 
     @NotNull
     @Override
-    public ID<String, List<String>> getName() {
+    public ID<String, Void> getName() {
         return KEY;
     }
 
     @NotNull
     @Override
-    public DataIndexer<String, List<String>, FileContent> getIndexer() {
+    public DataIndexer<String, Void, FileContent> getIndexer() {
         return fileContent -> {
-            final Map<String, List<String>> map = new THashMap<>();
 
+            final Map<String, Void> map = new THashMap<>();
             PsiFile psiFile = fileContent.getPsiFile();
 
-            if(! "PHP".equals(psiFile.getFileType().getName())) {
+            if (PsiFileUtil.isTestFile(fileContent)) {
                 return map;
             }
 
-            if (ConfigUtil.isConfigFile(fileContent.getProject(), fileContent.getFile())) {
+            // Collect all Configure::write statements
+            psiFile.acceptChildren(new ConfigureWritePsiRecursiveVisitor((key, psiElement) -> map.put(key, null)));
 
-                psiFile.acceptChildren(new ArrayReturnPsiRecursiveVisitor((key, psiKey, isRootElement) -> {
-                    map.put(key, Arrays.asList(
-                            ConfigUtil.getFilePath(fileContent.getProject(), fileContent.getFile()),
-                            Integer.toString(psiKey.getTextOffset())
-                    ));
-                }));
+            // Collect all $config = [...] statements within config files
+            if (PsiFileUtil.isConfigFile(fileContent)) {
+                psiFile.acceptChildren(new ArrayReturnPsiRecursiveVisitor((key, psiElement) -> map.put(key, null)));
             }
 
             return map;
@@ -58,14 +56,14 @@ public class ConfigKeyStubIndex extends FileBasedIndexExtension<String, List<Str
 
     @NotNull
     @Override
-    public DataExternalizer<List<String>> getValueExternalizer() {
-        return StringCollectionExternalizer.STRING_LIST_EXTERNALIZER;
+    public DataExternalizer<Void> getValueExternalizer() {
+        return VoidDataExternalizer.INSTANCE;
     }
 
     @NotNull
     @Override
     public FileBasedIndex.InputFilter getInputFilter() {
-        return file -> "PHP".equals(file.getFileType().getName());
+        return file -> file.getFileType() == PhpFileType.INSTANCE;
     }
 
     @Override

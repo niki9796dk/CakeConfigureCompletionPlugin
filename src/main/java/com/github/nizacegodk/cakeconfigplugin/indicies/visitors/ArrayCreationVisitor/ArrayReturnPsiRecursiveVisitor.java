@@ -1,5 +1,6 @@
-package com.github.nizacegodk.cakeconfigplugin.indicies.visitors;
+package com.github.nizacegodk.cakeconfigplugin.indicies.visitors.ArrayCreationVisitor;
 
+import com.github.nizacegodk.cakeconfigplugin.indicies.visitors.ConfigKeyDefinitionVisitor;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiRecursiveElementWalkingVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -14,10 +15,10 @@ import java.util.List;
 
 public class ArrayReturnPsiRecursiveVisitor extends PsiRecursiveElementWalkingVisitor {
 
-    private final ArrayKeyVisitor arrayKeyVisitor;
+    private final ConfigKeyDefinitionVisitor configKeyDefinitionVisitor;
 
-    public ArrayReturnPsiRecursiveVisitor(ArrayKeyVisitor arrayKeyVisitor) {
-        this.arrayKeyVisitor = arrayKeyVisitor;
+    public ArrayReturnPsiRecursiveVisitor(ConfigKeyDefinitionVisitor configKeyDefinitionVisitor) {
+        this.configKeyDefinitionVisitor = configKeyDefinitionVisitor;
     }
 
     @Override
@@ -36,11 +37,11 @@ public class ArrayReturnPsiRecursiveVisitor extends PsiRecursiveElementWalkingVi
         PsiElement arrayCreation = phpReturn.getValue();
 
         if(arrayCreation instanceof ArrayCreationExpression) {
-            collectConfigKeys((ArrayCreationExpression) arrayCreation, this.arrayKeyVisitor, Collections.emptyList());
+            collectConfigKeys((ArrayCreationExpression) arrayCreation, this.configKeyDefinitionVisitor, Collections.emptyList());
         }
     }
 
-    public static void collectConfigKeys(ArrayCreationExpression creationExpression, ArrayKeyVisitor arrayKeyVisitor, List<String> context) {
+    public static void collectConfigKeys(ArrayCreationExpression creationExpression, ConfigKeyDefinitionVisitor configKeyDefinitionVisitor, List<String> context) {
 
         for(ArrayHashElement hashElement: PsiTreeUtil.getChildrenOfTypeAsList(creationExpression, ArrayHashElement.class)) {
 
@@ -53,11 +54,10 @@ public class ArrayReturnPsiRecursiveVisitor extends PsiRecursiveElementWalkingVi
                 myContext.add(((StringLiteralExpression) arrayKey).getContents());
                 String keyName = StringUtils.join(myContext, ".");
 
+                configKeyDefinitionVisitor.visit(keyName, arrayKey);
+
                 if(arrayValue instanceof ArrayCreationExpression) {
-                    arrayKeyVisitor.visit(keyName, arrayKey, true);
-                    collectConfigKeys((ArrayCreationExpression) arrayValue, arrayKeyVisitor, myContext);
-                } else {
-                    arrayKeyVisitor.visit(keyName, arrayKey, false);
+                    collectConfigKeys((ArrayCreationExpression) arrayValue, configKeyDefinitionVisitor, myContext);
                 }
 
             }

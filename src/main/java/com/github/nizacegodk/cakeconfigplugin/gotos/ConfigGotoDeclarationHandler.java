@@ -1,10 +1,13 @@
 package com.github.nizacegodk.cakeconfigplugin.gotos;
 
+import com.github.nizacegodk.cakeconfigplugin.indicies.visitors.ArrayCreationVisitor.ArrayReturnPsiRecursiveVisitor;
+import com.github.nizacegodk.cakeconfigplugin.indicies.visitors.ConfigKeyDefinitionVisitor;
+import com.github.nizacegodk.cakeconfigplugin.indicies.visitors.ConfigureWritePsiRecursiveVisitor;
 import com.github.nizacegodk.cakeconfigplugin.psiElements.ConfigDeclarationFakePsiElement;
-import com.github.nizacegodk.cakeconfigplugin.util.ConfigUtil;
 import com.github.nizacegodk.cakeconfigplugin.patterns.CakeConfigureStringArgumentPattern;
 import com.github.nizacegodk.cakeconfigplugin.util.IndicesUtil;
 import com.github.nizacegodk.cakeconfigplugin.util.PsiElementUtil;
+import com.github.nizacegodk.cakeconfigplugin.util.PsiFileUtil;
 import com.intellij.codeInsight.navigation.actions.GotoDeclarationHandler;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -58,20 +61,23 @@ public class ConfigGotoDeclarationHandler implements GotoDeclarationHandler {
     private List<ConfigDeclaration> getAllDeclarationsForConfig(String configKey, Project project) {
 
         // Find all declarations and find all PsiFiles with those declarations
-        List<List<String>> configDeclarations = IndicesUtil.getValuesForConfigKeyIndex(configKey, project);
         List<PsiFile> configurationFiles = IndicesUtil.getAllFilesWithConfigKey(configKey, project);
 
         List<ConfigDeclaration> declarations = new ArrayList<>();
 
-        // Merge the files with the declarations
         for (PsiFile configurationFile : configurationFiles) {
-            for (List<String> indexPlace : configDeclarations) {
-                String filePath = ConfigUtil.getFilePath(project, configurationFile.getVirtualFile());
+            String filePath = PsiFileUtil.getFilePath(project, configurationFile.getVirtualFile());
 
-                if (indexPlace.get(0).equals(filePath)) {
-                    declarations.add(new ConfigDeclaration(configurationFile, filePath, indexPlace.get(1)));
-                    break;
+            ConfigKeyDefinitionVisitor visitor = (key, psiKey) -> {
+                if (key.equals(configKey)) {
+                    declarations.add(new ConfigDeclaration(configurationFile, filePath, psiKey));
                 }
+            };
+
+            configurationFile.acceptChildren(new ConfigureWritePsiRecursiveVisitor(visitor));
+
+            if (PsiFileUtil.isConfigFile(configurationFile)) {
+                configurationFile.acceptChildren(new ArrayReturnPsiRecursiveVisitor(visitor));
             }
         }
 

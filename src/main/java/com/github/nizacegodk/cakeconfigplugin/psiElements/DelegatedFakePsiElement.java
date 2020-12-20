@@ -2,7 +2,6 @@ package com.github.nizacegodk.cakeconfigplugin.psiElements;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.Language;
-import com.intellij.model.psi.PsiSymbolReference;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.TextRange;
