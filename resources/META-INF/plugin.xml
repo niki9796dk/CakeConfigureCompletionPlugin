@@ -18,16 +18,12 @@
   </description>
 
   <change-notes><![CDATA[
-    0.2:
-    <ul>
-      <li>Added quality of life visual improvements for listings of definitions and usages</li>
-      <li>Added jump to usage functionality</li>
-    </ul>
     0.1:
     <ul>
       <li>Initial release</li>
       <li>Auto completion for configure methods</li>
       <li>Jump to definition for configure keys</li>
+      <li>Jump to usage functionality</li>
     </ul>
     ]]>
   </change-notes>
