@@ -1,11 +1,11 @@
 <idea-plugin>
   <id>CakeConfigureCompletion</id>
   <name>Cake Configure Completion</name>
-  <version>0.2</version>
+  <version>0.1</version>
   <vendor email="nikiewald@hotmail.dk" url="https://github.com/niki9796dk/CakeConfigureCompletionPlugin">Niki Ewald Zakariassen</vendor>
 
   <description><![CDATA[
-    <p>Let's your IDE help you better.</p>
+    <p>Cake Configure Completion is a PhpStorm plugin, that improves code completion and usage / definition detection for Cake Configurations.</p>
     <br/>
 
     Plugin provides the following features:
